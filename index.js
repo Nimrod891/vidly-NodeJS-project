@@ -56,10 +56,15 @@ app.get("/api/genre/:id", (req, res) => {
   res.send(genre);
 });
 //Updating a genre
-
+app.put("/api/genres/:id", (req, res) => {
+  
 const genre = genres.find((c) => c.id === parseInt(req.body.id));
-if (!genre) return res.status(404).send("Genre ID does not exist");
-
+  if (!genre) return res.status(404).send("Genre ID does not exist");
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+  genre.name = req.body.name;
+  res.send(genre);
+});
 //Deleting a genre
 app.delete("api/genres/:id", (req, res) => {
   const genre = genres.find((c) => c.id === parseInt(req.body.id));
@@ -70,6 +75,13 @@ app.delete("api/genres/:id", (req, res) => {
 
   res.send(genre);
 });
+
+function validateGenre(genre){
+    const schema={
+        name:Joi.string().min(3).required()
+    }
+    return Joi.validate(genre,scema)
+}
 
 // Env variable for port, default = 3000 if port is undefied
 const port = process.env.PORT || 3000;
