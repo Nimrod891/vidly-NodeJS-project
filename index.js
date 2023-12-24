@@ -3,9 +3,13 @@ const Joi = require("joi");
 const logger = require("./logger");
 const express = require("express");
 const helmet = require("helmet");
+const startupDebugger = require('debug')('app:startup')
+const dbDebugger = require('debug')('app:db')
 const morgan = require("morgan");
 
 const app = express();
+
+app.set('view engine','pug')
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 console.log(`app: ${app.get("env")}`);
@@ -21,14 +25,22 @@ console.log('Mail Server: '+config.get('mail.host'))
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  console.log("Morgan enabled");
+
+  // USAGE: enable debugging: export DEBUG=app:startup,app:db or app.*
+  startupDebugger('Morgan Enabled...')
 }
+
+
 
 const genres = [
   { id: 1, name: "Comedy" },
   { id: 2, name: "Action" },
   { id: 3, name: "Drama" },
 ];
+
+app.get('/', (req,res)=>{
+    res.render('index', {title: 'My Express App', message: 'Hello'})
+})
 //Getting all genres
 app.get("/api/genres", (req, res) => {
   res.send(genres);
