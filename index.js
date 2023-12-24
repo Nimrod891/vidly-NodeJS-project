@@ -1,14 +1,46 @@
+const config = require('config')
 const Joi = require("joi");
+const logger = require("./logger");
 const express = require("express");
+const helmet = require("helmet");
+const startupDebugger = require('debug')('app:startup')
+const dbDebugger = require('debug')('app:db')
+const morgan = require("morgan");
+
 const app = express();
 
+app.set('view engine','pug')
+
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`app: ${app.get("env")}`);
+
 app.use(express.json());
+app.use(logger);
+app.use(helmet());
+
+//Configuration
+//USAGE: In Terminal, export NODE_ENV=development
+console.log('Application Name: '+config.get('name'))
+console.log('Mail Server: '+config.get('mail.host'))
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+
+  // USAGE: enable debugging: export DEBUG=app:startup,app:db or app.*
+  startupDebugger('Morgan Enabled...')
+}
+
+
 
 const genres = [
   { id: 1, name: "Comedy" },
   { id: 2, name: "Action" },
   { id: 3, name: "Drama" },
 ];
+
+app.get('/', (req,res)=>{
+    res.render('index', {title: 'My Express App', message: 'Hello'})
+})
 //Getting all genres
 app.get("/api/genres", (req, res) => {
   res.send(genres);
@@ -37,7 +69,8 @@ app.get("/api/genre/:id", (req, res) => {
 });
 //Updating a genre
 app.put("/api/genres/:id", (req, res) => {
-  const genre = genres.find((c) => c.id === parseInt(req.body.id));
+  
+const genre = genres.find((c) => c.id === parseInt(req.body.id));
   if (!genre) return res.status(404).send("Genre ID does not exist");
   const { error } = validateGenre(req.body);
   if (error) return res.status(400).send(error.details[0].message);
