@@ -1,8 +1,28 @@
+const config = require('config')
 const Joi = require("joi");
+const logger = require("./logger");
 const express = require("express");
+const helmet = require("helmet");
+const morgan = require("morgan");
+
 const app = express();
 
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`app: ${app.get("env")}`);
+
 app.use(express.json());
+app.use(logger);
+app.use(helmet());
+
+//Configuration
+//USAGE: In Terminal, export NODE_ENV=development
+console.log('Application Name: '+config.get('name'))
+console.log('Mail Server: '+config.get('mail.host'))
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("Morgan enabled");
+}
 
 const genres = [
   { id: 1, name: "Comedy" },
@@ -36,6 +56,7 @@ app.get("/api/genre/:id", (req, res) => {
   res.send(genre);
 });
 //Updating a genre
+
 const genre = genres.find((c) => c.id === parseInt(req.body.id));
 if (!genre) return res.status(404).send("Genre ID does not exist");
 
