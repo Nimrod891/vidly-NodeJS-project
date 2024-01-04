@@ -3,6 +3,7 @@ const config = require("config");
 
 const logger = require("./logger");
 const genres = require("./routes/genres");
+const customers = require("./routes/customers")
 const express = require("express");
 const helmet = require("helmet");
 const startupDebugger = require("debug")("app:startup");
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(logger);
 app.use(helmet());
 app.use("/api/genres", genres);
+app.use("/api/customers", customers);
 
 //Configuration
 //USAGE: In Terminal, export NODE_ENV=development
