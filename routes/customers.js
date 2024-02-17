@@ -1,8 +1,7 @@
-const {Customer, validate}=require('../models/customers')
+const {Customer, validate}=require('../models/customer')
 //this is object destructuring
 const mongoose = require("mongoose");
 const express = require("express");
-const { route } = require("./genres");
 const router = express.Router();
 
 
