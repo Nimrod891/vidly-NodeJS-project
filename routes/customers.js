@@ -4,10 +4,6 @@ const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
-
-
-const Customer = mongoose.model("Customer", customerSchema);
-
 router.get("/", async (req, res) => {
   const customers = await Customer.find().sort("name");
   res.send(customers);
@@ -37,7 +33,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //Updating a customer
-route.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
