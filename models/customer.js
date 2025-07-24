@@ -33,3 +33,4 @@ const customerSchema = new mongoose.Schema({
 
   exports.Customer=Customer;
   exports.validate=validateCustomer;
+  exports.customerSchema=customerSchema;

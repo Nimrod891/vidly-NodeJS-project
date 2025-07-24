@@ -29,6 +29,8 @@ const movieSchema=new mongoose.Schema({
 
 })
 
+  const Movie=mongoose.model('Movie', movieSchema);
+
 function validateMovie(movie) {
     const schema={
         title: Joi.string().min(1).max(50).required(),
@@ -41,3 +43,6 @@ function validateMovie(movie) {
     return Joi.validate(movie, schema);
 }
 
+    exports.Movie=Movie;
+    exports.validate=validateMovie;
+    exports.movieSchema=movieSchema;

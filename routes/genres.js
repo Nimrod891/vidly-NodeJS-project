@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 
 //Creating a genre
 router.post("/", async (req, res) => {
-  const { error } = validateGenre(req.body);
+  const { error } = validate(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
 
 //Updating a genre
 router.put("/:id", async (req, res) => {
-  const { error } = validateGenre(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const genre = await Genre.findByIdAndUpdate(
