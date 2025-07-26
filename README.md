@@ -16,13 +16,13 @@ A backend service for a video rental system, built while following the [Code wit
 - [v] MongoDB Integration with Mongoose  
 - [v] Data Modeling: Genres, Customers, Movies, Rentals  
 - [v] CRUD Operations with Validation (Joi)  
-- [v] Custom Middleware for Error Handling  
-- [v] User Registration Endpoint  
-- [v] Password Hashing with bcrypt  
-- [v] Authentication with JWT  
 - [v] Route Protection using Middleware  
 
 ### Upcoming
+- [] Custom Middleware for Error Handling  
+- [] User Registration Endpoint  
+- [] Password Hashing with bcrypt  
+- [] Authentication with JWT  
 - [] Role-Based Authorization (Admin Access)  
 - [] Advanced Logging with Winston  
 - [] Unit & Integration Testing  
