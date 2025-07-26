@@ -16,7 +16,7 @@ router.post('/',async(req,res)=>{
     const genre = await Genre.findById(req.body.genreId);
     if(!genre) return res.status(400).send('Invalid genre.');
 
-    let movie=new Movie({
+    const movie=new Movie({
         title: req.body.title,
         genre:{
             _id:genre._id,
@@ -24,14 +24,16 @@ router.post('/',async(req,res)=>{
         },
         numberInStock: req.body.numberInStock,
         dailyRentalRate: req.body.dailyRentalRate
-    });
-    movie=await movie.save();
-    res.send(movie);
+    })
+    
+    await movie.save()
+    res.send(movie)
 });
 
-router.put(':id', async (req, res)=>{
+router.put('/:id', async (req, res)=>{
     const {error} = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
+
     const genre = await Genre.findById(req.body.genreId);
     if (!genre) return res.status(400).send('Invalid genre');
 

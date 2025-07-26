@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("config");
+const Joi = require('joi')
+Joi.objectId = require('joi-objectid')(Joi)
 
 const logger = require("./logger");
 const genres = require("./routes/genres");
