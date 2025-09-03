@@ -30,6 +30,7 @@ function validateUser(user) {
         name: Joi.string().min(3).max(50).required(),
         email: Joi.string().max(255).min(5).required(),
         password: Joi.string().min(8).max(255).required()
+        //TODO: joi-password-complexity can be used here
     }
 
     return Joi.validate(user, schema)
