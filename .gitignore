@@ -1,2 +1,4 @@
 node_modules
-.vscode/
+.vscode
+config/default.json
+config/custom-environment-variables.json

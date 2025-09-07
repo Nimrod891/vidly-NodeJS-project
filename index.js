@@ -19,6 +19,11 @@ const morgan = require("morgan");
 
 const app = express();
 
+if (!config.get('jwtPrivateKey')){
+  console.error('FATAL ERROR: jwtPrivateKey is not defined')
+  process.exit(1)
+}
+
 mongoose.connect('mongodb://localhost/vidly')
   .then(() => console.log('Connected to mongoDB'))
   .catch(err => console.error('Could not connect to mongoDB'))
