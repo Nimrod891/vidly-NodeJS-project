@@ -3,7 +3,7 @@
 A backend service for a video rental system, built while following the [Code with Mosh](https://codewithmosh.com/p/node-js) Node.js course. Built using **Node.js**, **Express**, and **MongoDB**.
 
 > **Status**: 🚧 Work in Progress  
-> ✅ Reached the **Authentication** milestone
+> ✅ Reached the **Authorization** milestone
 
 ---
 
@@ -16,13 +16,13 @@ A backend service for a video rental system, built while following the [Code wit
 - [v] MongoDB Integration with Mongoose  
 - [v] Data Modeling: Genres, Customers, Movies, Rentals  
 - [v] CRUD Operations with Validation (Joi)  
-- [v] Route Protection using Middleware  
+- [v] Route Protection using Middleware
+- [v] User Registration Endpoint  
+- [v] Password Hashing with bcrypt  
+- [v] Authentication with JWT 
 
 ### Upcoming
-- [] Custom Middleware for Error Handling  
-- [] User Registration Endpoint  
-- [] Password Hashing with bcrypt  
-- [] Authentication with JWT  
+- [] Custom Middleware for Error Handling    
 - [] Role-Based Authorization (Admin Access)  
 - [] Advanced Logging with Winston  
 - [] Unit & Integration Testing  
